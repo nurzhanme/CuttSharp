@@ -23,7 +23,7 @@ namespace CuttSharp.Controllers
             _cuttlyService = cuttlyService ?? throw new ArgumentNullException(nameof(cuttlyService));
         }
 
-        [HttpPost]
+        [HttpPost("update")]
         public async Task<IActionResult> Post([FromBody] Update update)
         {
             var chatId = update.Message.Chat.Id;
