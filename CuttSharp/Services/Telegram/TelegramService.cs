@@ -11,14 +11,11 @@ namespace CuttSharp.Services.Telegram
         private readonly IBotService _botService;
         private readonly TelegramConfiguration _config;
 
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public TelegramService(ILogger<TelegramService> logger, IBotService botService, IOptions<TelegramConfiguration> config, IHttpContextAccessor httpContextAccessor)
+        public TelegramService(ILogger<TelegramService> logger, IBotService botService, IOptions<TelegramConfiguration> config)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _botService = botService ?? throw new ArgumentNullException(nameof(botService));
             _config = config.Value ?? throw new ArgumentNullException(nameof(config));
-            _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
         public async Task SendTextMessageToSystemChat(long chatId, string message)
@@ -34,8 +31,7 @@ namespace CuttSharp.Services.Telegram
 
         public async Task StartAsync(CancellationToken cancellationToken)
         {
-            var httpContext = _httpContextAccessor.HttpContext;
-            var baseUrl = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}{httpContext.Request.PathBase}";
+            var baseUrl = "https://cuttsharp.azurewebsites.net";
 
             _logger.LogInformation($"baseUrl = {baseUrl} - yeap");
 
