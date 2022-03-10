@@ -1,10 +1,21 @@
 using CuttSharp.Configurations;
 using CuttSharp.Services;
+using CuttSharp.Services.Telegram;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpContextAccessor();
+
 builder.Services.Configure<CuttlyConfiguration>(builder.Configuration.GetSection("Cuttly"));
+
+builder.Services.AddScoped<TelegramService>();
+
+builder.Services.AddSingleton<IBotService, BotService>();
+
+builder.Services.Configure<TelegramConfiguration>(builder.Configuration.GetSection("Telegram"));
+
+builder.Services.AddHostedService<TelegramService>();
 
 builder.Services.AddHttpClient<CuttlyService>();
 
