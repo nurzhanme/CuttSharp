@@ -14,11 +14,9 @@ builder.Services.AddSingleton<IBotService, BotService>();
 
 builder.Services.Configure<TelegramConfiguration>(builder.Configuration.GetSection("Telegram"));
 
-builder.Services.AddHostedService<TelegramService>();
-
 builder.Services.AddHttpClient<CuttlyService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
