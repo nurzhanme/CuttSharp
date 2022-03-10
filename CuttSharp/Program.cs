@@ -5,6 +5,8 @@ using CuttSharp.Services.Telegram;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
 
 builder.Services.Configure<CuttlyConfiguration>(builder.Configuration.GetSection("Cuttly"));
 
