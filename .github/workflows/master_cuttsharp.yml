@@ -46,7 +46,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: .net-app
-
+          
+         #substitute production appsettings entries to appsettings json file
+      - name: App Settings Variable Substitution
+        uses: microsoft/variable-substitution@v1
+        with:
+          files: '**/appsettings.json'
+        env:
+          Cuttly.ApiKey: ${{ secrets.CUTTLY_APIKEY }}
+          Telegram.AccessToken: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
