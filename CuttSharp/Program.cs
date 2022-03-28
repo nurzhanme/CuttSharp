@@ -1,6 +1,5 @@
 using Cuttly;
 using CuttSharp.Configurations;
-using CuttSharp.Services;
 using CuttSharp.Services.Telegram;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-builder.Services.Configure<CuttlyOptions>(builder.Configuration.GetSection("Cuttly"));
+builder.Services.AddCuttly(builder.Configuration.GetSection("Cuttly"));
 
 builder.Services.AddScoped<TelegramService>();
 
