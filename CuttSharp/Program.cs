@@ -1,3 +1,4 @@
+using Cuttly;
 using CuttSharp.Configurations;
 using CuttSharp.Services;
 using CuttSharp.Services.Telegram;
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
-builder.Services.Configure<CuttlyConfiguration>(builder.Configuration.GetSection("Cuttly"));
+builder.Services.Configure<CuttlyOptions>(builder.Configuration.GetSection("Cuttly"));
 
 builder.Services.AddScoped<TelegramService>();
 
@@ -16,7 +17,7 @@ builder.Services.AddSingleton<IBotService, BotService>();
 
 builder.Services.Configure<TelegramConfiguration>(builder.Configuration.GetSection("Telegram"));
 
-builder.Services.AddHttpClient<CuttlyService>();
+builder.Services.AddHttpClient<Client>();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -1,4 +1,6 @@
-﻿using CuttSharp.Configurations;
+﻿using Cuttly;
+using Cuttly.Responses.Enums;
+using CuttSharp.Configurations;
 using CuttSharp.Services;
 using CuttSharp.Services.Telegram;
 using Microsoft.AspNetCore.Http;
@@ -15,12 +17,12 @@ namespace CuttSharp.Controllers
     {
         private readonly ILogger<TelegramController> _logger;
         private readonly TelegramService _telegramService;
-        private readonly CuttlyService _cuttlyService;
-        public TelegramController(ILogger<TelegramController> logger, CuttlyService cuttlyService, TelegramService telegramService)
+        private readonly Client _cuttlyClient;
+        public TelegramController(ILogger<TelegramController> logger, Client cuttlyClient, TelegramService telegramService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _telegramService = telegramService ?? throw new ArgumentNullException(nameof(telegramService));
-            _cuttlyService = cuttlyService ?? throw new ArgumentNullException(nameof(cuttlyService));
+            _cuttlyClient = cuttlyClient ?? throw new ArgumentNullException(nameof(cuttlyClient));
         }
 
         [HttpPost("update")]
@@ -39,10 +41,9 @@ namespace CuttSharp.Controllers
 
             var linkToShort = update.Message.Text;
 
-            var res = await _cuttlyService.Shorten(linkToShort);
+            var res = await _cuttlyClient.Shorten(linkToShort);
 
-            await _telegramService.SendTextMessageToSystemChat(chatId, res.CuttlyResponse.Url.Status == 7 ? res.CuttlyResponse.Url.ShortLink : res.Message);
-
+            await _telegramService.SendTextMessageToSystemChat(chatId, res.Url.Status == 7 ? res.Url.ShortLink : Enum.GetName(typeof(ShortStatus), res.Url.Status) ?? "Unknown error");
             return Ok();
         }
     }
