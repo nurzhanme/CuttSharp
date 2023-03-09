@@ -10,9 +10,9 @@ namespace CuttSharp.Controllers
     [ApiController]
     public class CuttlyController : ControllerBase
     {
-        private Client _cuttlyClient;
+        private CuttlyClient _cuttlyClient;
 
-        public CuttlyController(Client cuttlyClient)
+        public CuttlyController(CuttlyClient cuttlyClient)
         {
             _cuttlyClient = cuttlyClient ?? throw new ArgumentNullException(nameof(cuttlyClient));
         }

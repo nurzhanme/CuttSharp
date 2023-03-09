@@ -17,8 +17,8 @@ namespace CuttSharp.Controllers
     {
         private readonly ILogger<TelegramController> _logger;
         private readonly TelegramService _telegramService;
-        private readonly Client _cuttlyClient;
-        public TelegramController(ILogger<TelegramController> logger, Client cuttlyClient, TelegramService telegramService)
+        private readonly CuttlyClient _cuttlyClient;
+        public TelegramController(ILogger<TelegramController> logger, CuttlyClient cuttlyClient, TelegramService telegramService)
         {
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _telegramService = telegramService ?? throw new ArgumentNullException(nameof(telegramService));
