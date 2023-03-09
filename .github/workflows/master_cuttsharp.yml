@@ -53,7 +53,7 @@ jobs:
         with:
           files: '**/appsettings.json'
         env:
-          Cuttly.ApiKey: ${{ secrets.CUTTLY_APIKEY }}
+          CuttlyOptions.ApiKey: ${{ secrets.CUTTLY_APIKEY }}
           Telegram.AccessToken: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           
       - name: Deploy to Azure Web App
